@@ -4,23 +4,23 @@
     using UnityEngine;
     using Zenject;
 
-    public class ControlPlayerMovementSystem : ISystem, ITickable
+    public class ControlPlayerMovementSystem : BaseSystem
     {
         private readonly GameDataManager gameDataManager;
-        private          float           moveSpeed = 20.0f;
+        private          float           moveSpeed = 10.0f;
 
         public ControlPlayerMovementSystem(GameDataManager gameDataManager) { this.gameDataManager = gameDataManager; }
 
-        public void Tick()
+        public override void Tick()
         {
             if (this.gameDataManager.PlayerCached.Key == null) return;
             var horizontalInput = Input.GetAxis("Horizontal"); // Left/Right
             var verticalInput   = Input.GetAxis("Vertical"); // Up/Down
 
-            // Calculate the new position
-            var movement = new Vector3(horizontalInput, 0, verticalInput) * this.moveSpeed * Time.deltaTime;
+            var direction = new Vector3(horizontalInput, 0, verticalInput) * this.moveSpeed * Time.deltaTime;
 
-            this.gameDataManager.PlayerCached.Value.OnMove(movement);
+            if (direction.normalized.magnitude >= 0.1f)
+                this.gameDataManager.PlayerCached.Value.OnMove(direction);
         }
     }
 }

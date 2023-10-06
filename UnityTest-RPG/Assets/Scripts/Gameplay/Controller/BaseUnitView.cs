@@ -11,7 +11,7 @@
     {
     }
 
-    public abstract class BaseUnitController<TData, TView> : IDisposable where TData : IData where TView : BaseUnitView
+    public abstract class BaseUnitController<TData, TView> : IController<TData>, IDisposable where TData : IData where TView : BaseUnitView
     {
         private readonly IGameAssets gameAsset;
         protected        TData       Data;
@@ -35,11 +35,10 @@
             }
         }
 
-        public virtual void OnMove(Vector3 position)
+        public virtual void OnMove(Vector3 direction)
         {
-            this.Data.CurrentPosition    += position;
-            this.view.transform.position += position;
-            
+            this.Data.CurrentPosition    += direction;
+            this.view.transform.position += direction;
         }
     }
 }

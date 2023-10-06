@@ -5,6 +5,7 @@
     [BlueprintReader("MiscParam")]
     public class MiscParamBlueprint : GenericBlueprintReaderByCol
     {
-        public string PlayerPrefab { get; set; }
+        public string PlayerPrefab       { get; set; }
+        public float  TimeAutoSpawnEnemy { get; set; }
     }
 }

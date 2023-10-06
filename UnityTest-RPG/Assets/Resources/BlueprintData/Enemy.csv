@@ -1,0 +1,3 @@
+Id,PrefabKey,Health,Damage,AttackRange
+MeleeEnemy,melee,100,10,1
+RangerEnemy,ranger,20,20,5

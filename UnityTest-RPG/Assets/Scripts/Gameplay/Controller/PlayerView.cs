@@ -11,6 +11,8 @@
 
     public class PlayerController : BaseUnitController<PlayerDataState, PlayerView>
     {
+        float turnSmoothVelocity;
+        float turnSmoothTime = 0.15f;
         public PlayerController(IGameAssets gameAsset) : base(gameAsset) { }
 
         public override async UniTask Create(PlayerDataState data)
@@ -19,15 +21,12 @@
             this.view.transform.position = Vector3.zero;
         }
 
-        public override void OnMove(Vector3 position)
+        public override void OnMove(Vector3 direction)
         {
-            base.OnMove(position);
-
-            if (position != Vector3.zero)
-            {
-                var newRotation = Quaternion.LookRotation(Vector3.up, position.normalized);
-                this.view.transform.rotation = Quaternion.Slerp(this.view.transform.rotation, newRotation, 2 * Time.deltaTime);
-            }
+            base.OnMove(direction);
+            var targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            var angle       = Mathf.SmoothDampAngle(this.view.transform.eulerAngles.y, targetAngle, ref this.turnSmoothVelocity, this.turnSmoothTime);
+            this.view.transform.rotation = Quaternion.Euler(0f, angle, 0f);
         }
     }
 }
