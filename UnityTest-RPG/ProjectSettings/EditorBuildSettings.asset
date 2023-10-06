@@ -9,5 +9,5 @@ EditorBuildSettings:
     path: Assets/Scenes/0.LoadingScene.unity
     guid: 3b2a6dde4c8f9de4fa4b0c348893566f
   m_configObjects:
-    com.unity.addressableassets: {fileID: 11400000, guid: b637cb3399856f24089e9297cc732d9d,
+    com.unity.addressableassets: {fileID: 11400000, guid: 682042c6ec86c4a4b8fd2d7a44d910e7,
       type: 2}

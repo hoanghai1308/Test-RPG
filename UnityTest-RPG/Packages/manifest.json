@@ -1,9 +1,6 @@
 {
-  "dependencies": {
-    "appsflyer-unity-adrevenue-generic-connector": "https://github.com/AppsFlyerSDK/appsflyer-unity-adrevenue-generic-connector.git#upm",
-    "appsflyer-unity-plugin": "https://github.com/AppsFlyerSDK/appsflyer-unity-plugin.git#upm",
+  "dependencies": {  
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
-    "com.google.external-dependency-manager": "file:GoogleDependency/com.google.external-dependency-manager-1.2.177.tgz",
     "com.neuecc.unirx": "https://github.com/neuecc/UniRx.git?path=Assets/Plugins/UniRx/Scripts",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ide.rider": "3.0.25",

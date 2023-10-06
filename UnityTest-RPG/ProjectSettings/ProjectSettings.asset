@@ -559,7 +559,6 @@ PlayerSettings:
   switchSocketConcurrencyLimit: 14
   switchScreenResolutionBehavior: 2
   switchUseCPUProfiler: 0
-  switchEnableFileSystemTrace: 0
   switchUseGOLDLinker: 0
   switchLTOSetting: 0
   switchApplicationID: 0x01004b9000490000
@@ -811,7 +810,7 @@ PlayerSettings:
     PS4: TextMeshPro;EASY_MOBILE;EASY_MOBILE_PRO
     PS5: TextMeshPro;EASY_MOBILE;EASY_MOBILE_PRO
     Stadia: TextMeshPro;EASY_MOBILE;EASY_MOBILE_PRO
-    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;TextMeshPro;EASY_MOBILE;EASY_MOBILE_PRO
+    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;TextMeshPro;EASY_MOBILE;EASY_MOBILE_PRO;ODIN_INSPECTOR_3_1
     WebGL: TextMeshPro;EASY_MOBILE;EASY_MOBILE_PRO
     Windows Store Apps: TextMeshPro;EASY_MOBILE;EASY_MOBILE_PRO
     XboxOne: TextMeshPro;EASY_MOBILE;EASY_MOBILE_PRO

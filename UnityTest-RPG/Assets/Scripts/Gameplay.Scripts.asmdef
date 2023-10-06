@@ -1,3 +1,26 @@
 {
-	"name": "Gameplay.Scripts"
+    "name": "Gameplay.Scripts",
+    "rootNamespace": "",
+    "references": [
+        "Zenject-Source",
+        "GameFoundation.Script",
+        "GameFoundation.UIModule",
+        "GameFoundation.Utilities",
+        "GameFoundation.Models",
+        "GameFoundation.BlueprintFlow",
+        "UniTask",
+        "Unity.Addressables",
+        "Unity.ResourceManager",
+        "GameFoundation.AssetLibrary",
+        "UniTask.Addressables"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
