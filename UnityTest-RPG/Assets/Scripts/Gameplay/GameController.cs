@@ -3,13 +3,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using Blueprints;
-    using Cysharp.Threading.Tasks;
-    using GameFoundation.Scripts.AssetLibrary;
-    using GameFoundation.Scripts.Utilities.ObjectPool;
     using Gameplay.Controller;
     using Gameplay.Manager;
     using Gameplay.Model;
-    using UnityEngine;
     using Zenject;
 
     public class GameController : IInitializable
@@ -35,14 +31,16 @@
 
             var data = new PlayerDataState()
             {
-                PrefabKey = this.miscParamBlueprint.PlayerPrefab,
-                Damage    = this.playerBlueprint.ElementAt(currentPlayerLevel).Value.Damage,
-                Health    = this.playerBlueprint.ElementAt(currentPlayerLevel).Value.Health,
+                PrefabKey             = this.miscParamBlueprint.PlayerPrefab,
+                Damage                = this.playerBlueprint.ElementAt(currentPlayerLevel).Value.Damage,
+                Health                = this.playerBlueprint.ElementAt(currentPlayerLevel).Value.Health,
+                PlayerBlueprintRecord = this.playerBlueprint.ElementAt(currentPlayerLevel).Value
             };
 
             var controller = this.diContainer.Instantiate<PlayerController>();
             await controller.Create(data);
             this.gameDataManager.PlayerCached = new KeyValuePair<PlayerDataState, PlayerController>(data, controller);
+            this.gameDataManager.ToTalControllers.Add(controller);
         }
     }
 }

@@ -1,2 +1,2 @@
-Id,Health,Damage
-1,100,5
+Id,Health,Damage,WeaponList
+1,100,5,Splash:SplashWeapon

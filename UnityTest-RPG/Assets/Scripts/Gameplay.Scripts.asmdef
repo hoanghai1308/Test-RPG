@@ -12,7 +12,8 @@
         "Unity.Addressables",
         "Unity.ResourceManager",
         "GameFoundation.AssetLibrary",
-        "UniTask.Addressables"
+        "UniTask.Addressables",
+        "Zenject-Signals"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

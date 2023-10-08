@@ -2,6 +2,7 @@
 {
     using Blueprints;
     using Cysharp.Threading.Tasks;
+    using GameFoundation.Scripts.Utilities.LogService;
     using Gameplay.Controller;
     using Gameplay.Manager;
     using Gameplay.Model;
@@ -11,15 +12,20 @@
     public class AutoSpawnEnemySystem : BaseSystem
     {
         private readonly GameDataManager    gameDataManager;
+        private readonly ILogService        logger;
+        private readonly SignalBus          signalBus;
         private readonly EnemyBlueprint     enemyBlueprint;
         private readonly DiContainer        diContainer;
         private readonly MiscParamBlueprint miscParamBlueprint;
         private          bool               AllowSpawnEnemy = false;
         private          float              Time            = 0;
 
-        public AutoSpawnEnemySystem(GameDataManager gameDataManager, EnemyBlueprint enemyBlueprint, DiContainer diContainer, MiscParamBlueprint miscParamBlueprint)
+        public AutoSpawnEnemySystem(GameDataManager gameDataManager, ILogService logger, SignalBus signalBus, EnemyBlueprint enemyBlueprint, DiContainer diContainer,
+            MiscParamBlueprint miscParamBlueprint)
         {
             this.gameDataManager    = gameDataManager;
+            this.logger             = logger;
+            this.signalBus          = signalBus;
             this.enemyBlueprint     = enemyBlueprint;
             this.diContainer        = diContainer;
             this.miscParamBlueprint = miscParamBlueprint;
@@ -42,11 +48,14 @@
         {
             this.Time += UnityEngine.Time.deltaTime;
 
+            if (this.gameDataManager.CachedEnemy.Count >= 1000) return;
             if (!this.AllowSpawnEnemy || this.gameDataManager.PlayerCached.Key == null) return;
 
             if (this.Time < this.miscParamBlueprint.TimeAutoSpawnEnemy) return;
             this.Time = 0;
-            var count           = Random.Range(5, 10);
+            var count = Random.Range(5, 10);
+            count = 1000;
+
             var playerDataState = this.gameDataManager.PlayerCached.Key;
 
             for (var i = 0; i < count; i++)
@@ -64,10 +73,12 @@
                     await this.CreateAndCacheEnemy<RangerEnemyDataState, RangerEnemyController>(enemyRecord, playerDataState);
                 }
             }
+
+            this.logger.Log($"ToTal Enemy Count: {this.gameDataManager.CachedEnemy.Count}");
         }
 
         private async UniTask CreateAndCacheEnemy<TData, TController>(EnemyRecord enemyRecord, PlayerDataState playerDataState)
-            where TData : IEnemy, new() where TController : IController<TData>
+            where TData : EnemyDataState, new() where TController : IController<TData>
         {
             var posX = Random.Range(30f, 50f) * Mathf.Sign(Random.Range(-1f, 1f));
             var posZ = Random.Range(30f, 50f) * Mathf.Sign(Random.Range(-1f, 1f));
@@ -82,9 +93,21 @@
                                   new Vector3(posX, 0, posZ)
             };
 
-            var controller = this.diContainer.Instantiate<TController>();
-            this.gameDataManager.CachedEnemy.Add(data, controller);
+            var controller = (TController)this.gameDataManager.EnemyControllers.Find(x => x is TController { IsFree: true });
+
+            if (controller == null)
+            {
+                controller = this.diContainer.Instantiate<TController>();
+            }
+
             await controller.Create(data);
+            this.gameDataManager.CachedEnemy.Add(data, controller);
+
+            if (!this.gameDataManager.EnemyControllers.Contains(controller))
+            {
+                this.gameDataManager.EnemyControllers.Add(controller);
+                this.gameDataManager.ToTalControllers.Add(controller);
+            }
         }
     }
 }

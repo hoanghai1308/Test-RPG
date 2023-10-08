@@ -7,6 +7,8 @@ namespace Gameplay.Manager
     public class GameDataManager
     {
         public KeyValuePair<PlayerDataState, PlayerController> PlayerCached;
-        public Dictionary<IData, object>                       CachedEnemy { get; set; } = new();
+        public Dictionary<IData, IController>                  CachedEnemy      { get; set; } = new();
+        public List<IController>                               ToTalControllers { get; set; } = new();
+        public List<object>                                    EnemyControllers { get; set; } = new();
     }
 }

@@ -2,11 +2,17 @@
 {
     using UnityEngine;
 
-    public interface IData
+    public interface IUnit
     {
-        string  PrefabKey       { get; set; }
-        int     Health          { get; set; }
-        int     Damage          { get; set; }
-        Vector3 CurrentPosition { get; set; }
+        
+    }
+
+    public interface IData:IUnit
+    {
+        string    PrefabKey       { get; set; }
+        Transform View            { get; set; }
+        int       Health          { get; set; }
+        int       Damage          { get; set; }
+        Vector3   CurrentPosition { get; set; }
     }
 }
