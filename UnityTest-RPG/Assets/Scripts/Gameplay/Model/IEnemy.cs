@@ -11,5 +11,6 @@
         None,
         Move,
         Attack,
+        Attacking,
     }
 }

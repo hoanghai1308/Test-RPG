@@ -1,0 +1,16 @@
+{
+    "name": "MeshAnimator.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b568be638d1045f4da6586cd6d66b7d7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -48,13 +48,13 @@
         {
             this.Time += UnityEngine.Time.deltaTime;
 
-            if (this.gameDataManager.CachedEnemy.Count >= 1000) return;
             if (!this.AllowSpawnEnemy || this.gameDataManager.PlayerCached.Key == null) return;
 
             if (this.Time < this.miscParamBlueprint.TimeAutoSpawnEnemy) return;
             this.Time = 0;
             var count = Random.Range(5, 10);
-            count = 1000;
+            // count = 1000;
+            // if (this.gameDataManager.CachedEnemy.Count >= 1000) return;
 
             var playerDataState = this.gameDataManager.PlayerCached.Key;
 

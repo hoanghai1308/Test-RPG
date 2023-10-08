@@ -2,6 +2,8 @@
 {
     using System;
     using Cysharp.Threading.Tasks;
+    using FSG.MeshAnimator;
+    using FSG.MeshAnimator.Snapshot;
     using GameFoundation.Scripts.AssetLibrary;
     using GameFoundation.Scripts.Utilities.ObjectPool;
     using Gameplay.Model;
@@ -9,9 +11,9 @@
 
     public abstract class BaseUnitView : MonoBehaviour
     {
-        public  Animator         Animator;
-        public  Action<Collider> TriggerEnterAction;
-        private void             OnTriggerEnter(Collider other) { this.TriggerEnterAction?.Invoke(other); }
+        public  SnapshotMeshAnimator Animator;
+        public  Action<Collider>     TriggerEnterAction;
+        private void                 OnTriggerEnter(Collider other) { this.TriggerEnterAction?.Invoke(other); }
     }
 
     public abstract class BaseUnitController<TData, TView> : IController<TData> where TData : IData where TView : BaseUnitView
@@ -60,12 +62,15 @@
             this.view.transform.rotation = Quaternion.Euler(0f, angle, 0f);
         }
 
-        protected void PlayAnimation(string trigger)
+        protected void PlayAnimation(string animName)
         {
             if (this.view.Animator != null)
             {
-                this.view.Animator.SetTrigger(trigger);
+                this.view.Animator.Play(animName);
+                this.view.Animator.OnAnimationFinished = OnAnimationFinished;
             }
         }
+
+        protected virtual void OnAnimationFinished(string obj) { }
     }
 }

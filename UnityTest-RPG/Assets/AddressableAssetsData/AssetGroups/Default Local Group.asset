@@ -22,6 +22,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d7675d33936364843baa47553f36e2c0
+    m_Address: ranger
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 60b80640b4d1a614b918fff2f1af0c13
     m_Address: player
     m_ReadOnly: 0
@@ -32,12 +37,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d7675d33936364843baa47553f36e2c0
-    m_Address: ranger
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7a7e1986d3115964b9c4baff54113424
+  - m_GUID: 31c71b83407fca34e98c5a9ded392065
     m_Address: SplashWeapon
     m_ReadOnly: 0
     m_SerializedLabels: []
