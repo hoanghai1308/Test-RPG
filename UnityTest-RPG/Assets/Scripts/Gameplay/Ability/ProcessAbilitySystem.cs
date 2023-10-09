@@ -17,11 +17,11 @@
             }
         }
 
-        public async UniTask ProcessAbility(string abilityName, IData data, IData target)
+        public async UniTask ProcessAbility(AbilityDataState abilityDataState, IData data, IData target)
         {
-            if (this.abilities.TryGetValue(abilityName, out var ability))
+            if (this.abilities.TryGetValue(abilityDataState.AbilityKey, out var ability))
             {
-                await ability.Execute(data, target);
+                await ability.Execute(abilityDataState, data, target);
             }
         }
     }

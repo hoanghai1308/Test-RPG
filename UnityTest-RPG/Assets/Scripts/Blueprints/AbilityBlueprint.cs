@@ -12,5 +12,9 @@
     {
         public string Id;
         public float  TimeFrequency;
+        public string ProjectTile;
+        public string HitTarget;
+        public string EffectId;
+        public int    Value;
     }
 }

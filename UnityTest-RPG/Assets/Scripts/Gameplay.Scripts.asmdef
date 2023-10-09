@@ -14,7 +14,9 @@
         "GameFoundation.AssetLibrary",
         "UniTask.Addressables",
         "Zenject-Signals",
-        "MeshAnimator.Scripts"
+        "MeshAnimator.Scripts",
+        "Unity.TextMeshPro",
+        "UniRx"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

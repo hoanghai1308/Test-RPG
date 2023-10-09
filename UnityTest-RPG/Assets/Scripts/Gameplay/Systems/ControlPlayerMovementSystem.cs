@@ -2,7 +2,6 @@
 {
     using Gameplay.Manager;
     using UnityEngine;
-    using Zenject;
 
     public class ControlPlayerMovementSystem : BaseSystem
     {
@@ -21,6 +20,10 @@
 
             if (direction.normalized.magnitude >= 0.1f)
                 this.gameDataManager.PlayerCached.Value.OnMove(direction);
+            else
+            {
+                this.gameDataManager.PlayerCached.Value.OnStand();
+            }
         }
     }
 }

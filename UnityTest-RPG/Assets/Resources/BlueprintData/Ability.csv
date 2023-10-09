@@ -1,2 +1,4 @@
-Id,TimeFrequency
-SplashAttack,2
+Id,TimeFrequency,ProjectTile,HitTarget,EffectId,Value
+SplashAttack,2,,,DealDame,20
+MeleeAttack,0,,HitTarget,DealDame,5
+RangerAttack,0,ProjectTile,HitTarget,DealDame,5

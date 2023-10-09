@@ -31,10 +31,9 @@
             this.miscParamBlueprint = miscParamBlueprint;
         }
 
-        public override async void Initialize()
+        public override void Initialize()
         {
             base.Initialize();
-            await UniTask.Delay(1000);
             this.AllowSpawnEnemy = true;
         }
 
@@ -52,7 +51,7 @@
 
             if (this.Time < this.miscParamBlueprint.TimeAutoSpawnEnemy) return;
             this.Time = 0;
-            var count = Random.Range(5, 10);
+            var count = Random.Range(this.miscParamBlueprint.SpawnEnemyRate[0], this.miscParamBlueprint.SpawnEnemyRate[1]);
             // count = 1000;
             // if (this.gameDataManager.CachedEnemy.Count >= 1000) return;
 
@@ -61,7 +60,6 @@
             for (var i = 0; i < count; i++)
             {
                 var isMelee = Random.Range(0, 2) == 0;
-
                 var enemyRecord = this.enemyBlueprint[isMelee ? "MeleeEnemy" : "RangerEnemy"];
 
                 if (isMelee)
@@ -74,17 +72,18 @@
                 }
             }
 
-            this.logger.Log($"ToTal Enemy Count: {this.gameDataManager.CachedEnemy.Count}");
+            this.gameDataManager.TotalEnemyCount.Value = this.gameDataManager.CachedEnemy.Count;
         }
 
         private async UniTask CreateAndCacheEnemy<TData, TController>(EnemyRecord enemyRecord, PlayerDataState playerDataState)
             where TData : EnemyDataState, new() where TController : IController<TData>
         {
-            var posX = Random.Range(30f, 50f) * Mathf.Sign(Random.Range(-1f, 1f));
-            var posZ = Random.Range(30f, 50f) * Mathf.Sign(Random.Range(-1f, 1f));
+            var posX = Random.Range(this.miscParamBlueprint.SpawnRangerPosition[0], this.miscParamBlueprint.SpawnRangerPosition[1]) * Mathf.Sign(Random.Range(-1f, 1f));
+            var posZ = Random.Range(this.miscParamBlueprint.SpawnRangerPosition[0], this.miscParamBlueprint.SpawnRangerPosition[1]) * Mathf.Sign(Random.Range(-1f, 1f));
 
             var data = new TData
             {
+                Id          = enemyRecord.Id,
                 PrefabKey   = enemyRecord.PrefabKey,
                 Health      = enemyRecord.Health,
                 Damage      = enemyRecord.Damage,

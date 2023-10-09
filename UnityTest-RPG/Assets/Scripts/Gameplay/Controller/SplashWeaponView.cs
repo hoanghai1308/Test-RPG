@@ -1,12 +1,13 @@
 ﻿namespace Gameplay.Controller
 {
-    using System;
+    using System.Collections.Generic;
     using Blueprints;
     using Cysharp.Threading.Tasks;
     using GameFoundation.Scripts.AssetLibrary;
     using GameFoundation.Scripts.Utilities.LogService;
     using Gameplay.Ability;
     using Gameplay.Model;
+    using Gameplay.Signal;
     using UnityEngine;
 
     public class SplashWeaponView : BaseUnitView
@@ -33,21 +34,29 @@
             this.view.transform.SetParent(data.Parent);
             this.view.gameObject.SetActive(false);
             this.ActiveAbility = true;
-            this.ProcessAbility();
-        }
-
-        private async void ProcessAbility()
-        {
-            if (!this.ActiveAbility) return;
-            await UniTask.Delay(TimeSpan.FromSeconds(this.abilityBlueprint[this.Data.AbilityKey].TimeFrequency));
-            await this.processAbilitySystem.ProcessAbility(this.Data.AbilityKey, this.Data, null);
-            this.ProcessAbility();
+            var abilityState = this.CreateAbilityDataState(this.Data.AbilityKey);
+            this.Data.AbilityDataState = abilityState;
+            this.ProcessAbility(this.ActiveAbility, new List<AbilityDataState>() { this.Data.AbilityDataState }, this.Data, null).Forget();
         }
 
         protected override void OnTriggerEnter(Collider obj)
         {
             base.OnTriggerEnter(obj);
-            this.logger.Log(obj.name);
+            var script = obj.GetComponent<BaseUnitView>();
+
+            if (script == null || script.Data.IsDead) return;
+
+            this.SignalBus.Fire(new ProcessEffectSignal()
+            {
+                HitTargetModel = new HitTargetModel()
+                {
+                    Attacker         = this.Data,
+                    HitAttack        = script.Data,
+                    AbilityDataState = this.Data.AbilityDataState
+                }
+            });
+
+            this.logger.Log($"{this.view.gameObject.name} Hit {obj.name}");
         }
 
         public override void Dispose()

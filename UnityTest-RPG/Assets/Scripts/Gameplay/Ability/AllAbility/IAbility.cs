@@ -6,6 +6,6 @@
     public interface IAbility
     {
         string  AbilityName { get; }
-        UniTask Execute(IData attacker, IData hitAttack);
+        UniTask Execute(AbilityDataState abilityDataState,IData attacker, IData hitAttack);
     }
 }

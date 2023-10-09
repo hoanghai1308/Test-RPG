@@ -1,3 +1,6 @@
 Id,Value
 PlayerPrefab,player
 TimeAutoSpawnEnemy,10
+SpawnEnemyRate,"5,10"
+SpawnRangerPosition,"30,50"
+TurnSmoothTime,0.15
